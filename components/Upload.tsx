@@ -4,9 +4,16 @@ import { v4 as uuid } from "uuid"
 interface IUploadProps {
   isOpen: boolean
   handleClose: () => void
+  setSongsData: (data: any) => void
+  songsData: any
 }
 
-const Upload = ({ isOpen, handleClose }: IUploadProps) => {
+const Upload = ({
+  isOpen,
+  handleClose,
+  songsData,
+  setSongsData,
+}: IUploadProps) => {
   const [data, setData] = useState({})
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +36,9 @@ const Upload = ({ isOpen, handleClose }: IUploadProps) => {
 
   const handleUpload = () => {
     const uploadData = { ...data, id: uuid() }
+    songsData.push(uploadData)
+    setSongsData([...songsData])
+    handleClose()
   }
 
   if (!isOpen) return null

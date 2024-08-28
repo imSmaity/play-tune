@@ -20,7 +20,11 @@ const Card = ({
 }: ICardProps) => {
   return (
     <div
-      className={isTableRow ? "flex items-center gap-4" : `flex flex-col gap-3`}
+      className={
+        isTableRow
+          ? "flex items-center gap-4 cursor-pointer"
+          : `flex flex-col gap-3 cursor-pointer`
+      }
     >
       <div className={isTableRow ? "text-gray-500" : "hidden"}>{index}</div>
       <Image
@@ -31,6 +35,8 @@ const Card = ({
             ? "w-[50px] h-[50px] rounded-lg"
             : "w-[250px] h-[250px] rounded-lg"
         }
+        width={500}
+        height={500}
       />
       <div>
         <div className="text-xl font-semibold">{name}</div>

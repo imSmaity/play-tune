@@ -12,6 +12,9 @@ import Upload from "./Upload"
 const Main = () => {
   const [isGridLayout, setIsGridLayout] = useState(false)
   const [isOpenUpload, setIsOpenUpload] = useState(false)
+  const [songsData, setSongsData] = useState([])
+  const [song, setSong] = useState(null)
+
   return (
     <>
       <div className="p-20">
@@ -41,20 +44,34 @@ const Main = () => {
               />
             </div>
           </div>
-          <Card
-            index={1}
-            image={img}
-            name="Bataas Dake Na"
-            singers="Subhamita"
-            time="4:44"
-            isTableRow={!isGridLayout}
-          />
+          <div
+            className={
+              isGridLayout ? "grid grid-cols-4" : "flex flex-col gap-4"
+            }
+          >
+            {songsData.map((song: any, index) => (
+              <div key={song?.id} onClick={() => setSong(song)}>
+                <Card
+                  index={index + 1}
+                  image={
+                    song.coverImage ? URL.createObjectURL(song.coverImage) : ""
+                  }
+                  name={song?.title}
+                  singers={song?.singers}
+                  time="4:44"
+                  isTableRow={!isGridLayout}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-      <Play />
+      <Play songData={song} />
       <Upload
         isOpen={isOpenUpload}
         handleClose={() => setIsOpenUpload(false)}
+        songsData={songsData}
+        setSongsData={setSongsData}
       />
     </>
   )
